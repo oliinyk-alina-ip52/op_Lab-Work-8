@@ -12,48 +12,43 @@
 
 using namespace std;
 
-char *Input();
-char s[10000];
 void write_file();
-int i, size;
+void read_file();
+
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	write_file();
-	
-	/*int value;
-	FILE *Ptr;
-
-	 fopen_s(&Ptr,"mass.txt", "w");
-	printf("Enter value: \n");
-	scanf_s("%d", &value);
-
-	for (int i = 0; i<10; i++){
-		fprintf(Ptr, "%d", value);
-		scanf_s("%d", &value);
-	}
-
-	fclose(Ptr);*/
+	read_file();
 	system("pause");
 	return 0;
 }
 
+
 void write_file()
 {
+	char s[100];
+	char c;
 	FILE *f;
-	fopen_s(&f, "f.txt", "w");
-	char ch;
-	cout << "enter:\n";
-	while ((ch = _getch()) != 17){
-		if (ch == 13) { s[i] = '\0'; cout << endl; i++; }
-		else { fprintf(f, "%c", ch); s[i++] = ch; i++; }
-		size = i;
+	fopen_s(&f,"file.txt", "wt");
+	do
+	{
+		cout << "Input string:"; 
+		gets_s(s);
+		fputs(s, f);
+		cout << "Continue?(Y/N)"; cin >> c;
+	} while ((c != 'n') && (c != 'N'));
+	fclose(f);
+}
+void read_file()
+{
+	char s[40];
+	FILE *f;
+	fopen_s(&f,"file.txt", "rt");
+	while (!feof(f))
+	{
+		fgets(s, sizeof(s), f);
+		printf("%s\n", s);
 	}
-		for (int k = 0; k < size; k++)
-		{
-			cout << s[i]; i++;
-			fprintf(f, "%c", s[i]);
-		}
-	
 	fclose(f);
 }
