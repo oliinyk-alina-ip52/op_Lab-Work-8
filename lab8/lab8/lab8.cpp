@@ -13,13 +13,13 @@
 using namespace std;
 
 void write_file();
-void read_file();
-
+void output_file();
+int size, i;
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	write_file();
-	read_file();
+	output_file();
 	system("pause");
 	return 0;
 }
@@ -27,28 +27,22 @@ int _tmain(int argc, _TCHAR* argv[])
 
 void write_file()
 {
-	char s[100];
 	char c;
 	FILE *f;
-	fopen_s(&f,"file.txt", "wt");
-	do
-	{
-		cout << "Input string:"; 
-		gets_s(s);
-		fputs(s, f);
-		cout << "Continue?(Y/N)"; cin >> c;
-	} while ((c != 'n') && (c != 'N'));
-	fclose(f);
+	fopen_s(&f, "file.txt", "w+");
+	cout << "enter strings:\n";
+	while ((c = _getch()) != 26)
+	if (c == 13) { fputc('\n', f); cout << endl; }
+	else  { printf("%c", c); fputc(c, f); }
+
+	size = i;
 }
-void read_file()
+void output_file()
 {
-	char s[40];
-	FILE *f;
-	fopen_s(&f,"file.txt", "rt");
-	while (!feof(f))
+	char s[100];
+	for (int k = 0; k < size; k++)
 	{
-		fgets(s, sizeof(s), f);
-		printf("%s\n", s);
+		cout << s[i]; i++;
 	}
-	fclose(f);
 }
+
