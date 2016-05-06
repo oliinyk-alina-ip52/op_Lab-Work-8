@@ -40,11 +40,12 @@ void output_file(char* t)
 			for (int k = 0; k < size; k++){
 				printf("%s", s[i]); i++;
 			}		
+			printf("\nnumber: %d", number("file.txt"));
 	}
 	fclose(f);
 }
 
-void number(char *t)
+int number(char *t)
 {
 	FILE *f;
 	fopen_s(&f, t, "r");
@@ -65,8 +66,8 @@ void number(char *t)
 				count++;
 		}
 	}
-	cout<< count;
-	fclose(f);
+	return count;
+	fclose(f);	
 }
 
 void change(char *t, char *n)
@@ -78,4 +79,27 @@ void change(char *t, char *n)
 		perror("Error opening file");
 		system("pause");
 	}
+	FILE *file;
+	fopen_s(&file, n, "w+");
+	if (file == NULL)
+	{
+		perror("Error creating file");
+		system("pause");
+	}
+	char s[100];
+	char b[8] = " ,.\n\t";
+	char *tok;
+	char *next = NULL;
+	while (fgets(s, 100, f)){
+		for (tok = strtok_s(s, b, &next); tok; tok = strtok_s(NULL, b, &next))
+		{
+			if (strlen(tok) != 2){
+				cout << endl<<tok;
+				fputs(tok, file);
+				fputs("\n", file);
+			}
+			}
+	}
+	fclose(f);
+	fclose(file);
 }
