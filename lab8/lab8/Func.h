@@ -8,5 +8,6 @@
 
 void write_file(char*);
 void output_file(char*);
-int number(char *);
+int number(char*);
 void change(char*, char*);
+void output_numb(char*);

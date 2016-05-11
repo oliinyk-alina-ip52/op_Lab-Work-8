@@ -40,7 +40,7 @@ void output_file(char* t)
 			for (int k = 0; k < size; k++){
 				printf("%s", s[i]); i++;
 			}		
-			printf("\nnumber: %d", number("file.txt"));
+			//sprintf_s(s,"\nnumber: %d", number("new_file.txt"));
 	}
 	fclose(f);
 }
@@ -94,12 +94,29 @@ void change(char *t, char *n)
 		for (tok = strtok_s(s, b, &next); tok; tok = strtok_s(NULL, b, &next))
 		{
 			if (strlen(tok) != 2){
-				cout << endl<<tok;
+				//cout << endl<<tok;
 				fputs(tok, file);
-				fputs("\n", file);
+				fputs(" ", file);
 			}
 			}
 	}
 	fclose(f);
 	fclose(file);
+}
+
+void output_numb(char *t)
+{
+	FILE *f;
+	char s[100];
+	fopen_s(&f, t, "a+");
+	if (f == NULL)
+	{
+		perror("Error opening file");
+		system("pause");
+	}
+	else{
+		fprintf(f,"\nnumber: %d ",number("file.txt"));
+		
+	}
+	fclose(f);
 }
