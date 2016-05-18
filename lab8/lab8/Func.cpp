@@ -3,7 +3,6 @@
 
 using namespace std;
 
-int size, i;
 const int N = 100;
 void write_file(char* t)
 {
@@ -21,7 +20,6 @@ void write_file(char* t)
 		while ((c = _getch()) != 26)
 		if (c == 13) { fputc('\n', f); cout << endl; }
 		else  { printf("%c", c); fputc(c, f); }
-		size = i;
 	}
 	fclose(f);
 }
@@ -51,8 +49,8 @@ void output_file(char* t)
 
 void change(char* m, char* n)
 {
-	FILE *f,*file;
-	char t[N] = { '\0' };
+	FILE *f, *file;
+	char t[N]={'\0'};
 	fopen_s(&f, m, "r");
 	if (f == NULL)
 	{
@@ -66,24 +64,28 @@ void change(char* m, char* n)
 		system("pause");
 	}
 	int count = 0;
-	char s[100];
-	char b[8] = " ;:,.\n\t";
+	char s[1000];
+	char a[5] = "\n";
+	char b[8] = " ;:,.\t";
 	char *tok;
+	char *tok1;
 	char *next = NULL;
-	while (fgets(s, 100, f)){
-		for (tok = strtok_s(s, b, &next); tok; tok = strtok_s(NULL, b, &next))
-		{
-			if (strlen(tok) != 2)
+	while (fgets(s, 1000, f)){
+		for (tok = strtok_s(s, a, &next); tok; tok = strtok_s(NULL, a, &next)){
+			for (tok1 = strtok_s(tok, b, &next); tok1; tok1 = strtok_s(NULL, b, &next))
 			{
-				strcat_s(t, sizeof(t)-strlen(t), tok);
-				strcat_s(t, sizeof(t)-strlen(t), " ");
+				if (strlen(tok1) != 2)
+				{
+					strcat_s(t, sizeof(t)-strlen(t), tok1);
+					strcat_s(t, sizeof(t)-strlen(t), " ");
+				}
+				else count++;
 			}
-			else count++;
-		}
+			strcat_s(t, sizeof(t)-strlen(t), "\n");
+			}
 	}
 	fputs(t, file);
-	fputs("\n", file);
-	fprintf(file, "number: %d ",count);
-		fclose(f);
-		fclose(file);
+	fprintf(file, "number: %d ", count);
+	fclose(f);
+	fclose(file);
 }
