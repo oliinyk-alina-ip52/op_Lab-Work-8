@@ -9,4 +9,3 @@
 void write_file(char*);
 void output_file(char*);
 void change(char*, char*);
-void output(char*);
